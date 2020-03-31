@@ -5,6 +5,8 @@
  */
 package apis.CA3.Database;
 
+import apis.CA3.Models.Account;
+import apis.CA3.Models.Customer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +43,12 @@ public class Database {
 //        c.setCandidateId(CANDIDATES.size());
 //        save();
 //        return c;
-//    }    
+//    }  
+    public Customer add(Customer c){
+        return c;
+    }
+
+    public Account add(Customer c, Account a){
+        return a;
+    }
 }
