@@ -7,6 +7,7 @@ package apis.CA3.Database;
 
 import apis.CA3.Models.Account;
 import apis.CA3.Models.Customer;
+import apis.CA3.Models.Transaction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,5 +51,9 @@ public class Database {
 
     public Account add(Customer c, Account a){
         return a;
+    }
+    
+    public Transaction add(Account a, Transaction t){
+        return t;
     }
 }
