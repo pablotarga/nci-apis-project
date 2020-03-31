@@ -6,7 +6,9 @@
 package apis.CA3.Models;
 
 import apis.CA3.Services.PasswordEncryptionService;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 /**
  *
@@ -26,7 +28,7 @@ public class Customer {
     // hashed, salted and base64 encoded password digest
     private String passwordDigest;
     
-    // List<Account> accounts (ArrayList)
+    private List<Account> accounts = new ArrayList<>();
     
     public void setId(int id){
         this.id = id;
@@ -91,5 +93,9 @@ public class Customer {
         } catch(Exception e){
             return false;
         }
+    }
+    
+    public List<Account> getAccounts(){
+        return accounts;
     }
 }

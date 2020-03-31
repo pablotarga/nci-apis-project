@@ -12,15 +12,22 @@ import java.util.Date;
  * @author x19182121
  */
 public class Transaction {
-  private int id;
+    private int id;
     private int accountID;
     private char type;
     private Date created;
     private double amount;
     private double postBalance;
+    private String description;
     
     public Transaction() {
-        
+    }
+    
+    public Transaction(char type, double amount, String description, double postBalance){
+        this.type = type;
+        this.amount = amount;
+        this.postBalance = postBalance;
+        this.description = description;
     }
 
     public int getId() {
