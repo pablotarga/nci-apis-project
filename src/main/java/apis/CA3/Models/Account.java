@@ -52,7 +52,7 @@ public class Account {
         return number;
     }
 
-    public void setAccountNumber(String number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -76,7 +76,7 @@ public class Account {
         return title;
     }
 
-    public void setAccountType(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
        
