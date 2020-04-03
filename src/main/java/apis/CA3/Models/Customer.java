@@ -98,4 +98,8 @@ public class Customer {
     public List<Account> getAccounts(){
         return accounts;
     }
+    
+    public void appendAccount(Account a){
+        accounts.add(a);
+    }
 }

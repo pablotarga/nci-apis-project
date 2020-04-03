@@ -20,10 +20,11 @@ public class AccountService {
     private static final Database DB = new Database();
     
     public Account add(Customer c, Account a){ 
-        c = DB.add(c);
         a = DB.add(c, a);
         return a;
     }
+    
+    
     
     public List<Account> search(){
         return DB.getAccountsDB();
@@ -71,6 +72,8 @@ public class AccountService {
         
         return null;
     }
+    
+    
     
     public boolean withdrawal(Account a, double amount) throws Exception{
         if(a.getBalance() < amount){
@@ -129,6 +132,4 @@ public class AccountService {
         
         return transfer(origin, target, amount);
     }
-
-    
 }

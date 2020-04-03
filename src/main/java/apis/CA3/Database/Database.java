@@ -21,9 +21,11 @@ public class Database implements Serializable {
 //    private static final List<Candidate> CANDIDATES = new ArrayList<>();
     private static final List<Transaction> TRANSACTIONS = new ArrayList<>();
     private static final List<Account> ACCOUNTS = new ArrayList<>();
+    private static boolean populated = false;
     
     public Database(){
-        load();
+        if(!populated)
+            populate();
     }
     
     public List<Account> getAccountsDB(){
@@ -38,14 +40,13 @@ public class Database implements Serializable {
 //        return CANDIDATES;
 //    }
     
-    private void load(){
-//        load using the FileOutputBuffer/FileInputBuffer
+    private void populate(){
+        if(populated)
+            return;
+        
+        populated = true;
     }
-    
-    private void save(){
-//        save using the FileOutputBuffer/FileInputBuffer
-    }
-    
+        
 //    public Candidate add(Candidate c){
 //        if(CANDIDATES.indexOf(c) >=0){
 //            return c;
@@ -56,6 +57,7 @@ public class Database implements Serializable {
 //        save();
 //        return c;
 //    }  
+    
     public Customer add(Customer c){
         return c;
     }
@@ -74,7 +76,8 @@ public class Database implements Serializable {
         }
         
         ACCOUNTS.add(a);
-        c.getAccounts().add(a);
+        c.appendAccount(a);
+                
         return a;
     }
     
@@ -86,9 +89,7 @@ public class Database implements Serializable {
         
         // append transaction into list        
         TRANSACTIONS.add(t);
-        
-        save();
-        
+        a.appendTransaction(t);    
         return t;
     }
 }

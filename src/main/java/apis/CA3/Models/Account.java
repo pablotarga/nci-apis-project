@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author x19182121
  */
-public class Account {
+public class Account{
     private int id;
     private int customerID;
     private String sortCode;
@@ -83,6 +83,10 @@ public class Account {
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+    
+    public void appendTransaction(Transaction t){
+        transactions.add(t);
     }
 
     public String getTitle() {
