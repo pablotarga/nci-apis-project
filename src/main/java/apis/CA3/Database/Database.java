@@ -21,6 +21,7 @@ public class Database implements Serializable {
 //    private static final List<Candidate> CANDIDATES = new ArrayList<>();
     private static final List<Transaction> TRANSACTIONS = new ArrayList<>();
     private static final List<Account> ACCOUNTS = new ArrayList<>();
+    private static final List<Customer> CUSTOMERS = new ArrayList<>();
     
     public Database(){
         load();
@@ -32,6 +33,10 @@ public class Database implements Serializable {
 
     public List<Transaction> getTransactionsDB(){
         return TRANSACTIONS;
+    }
+    
+    public List<Customer> getCustomerDB(){
+        return CUSTOMERS;
     }
 
 //    public List<Candidate> getCandidatesDB(){
