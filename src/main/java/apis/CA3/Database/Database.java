@@ -45,6 +45,13 @@ public class Database implements Serializable {
             return;
         
         populated = true;
+        
+        Customer c = new Customer();
+        c.setName("John Doe");
+        
+        add(c, new Account("90-66-30"));
+        add(c, new Account("90-66-30", "Savings"));
+        add(c, new Account("90-66-30", "Credit Card"));
     }
         
 //    public Candidate add(Candidate c){
