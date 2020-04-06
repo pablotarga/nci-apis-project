@@ -15,6 +15,7 @@ public class CustomerTest {
     public static void main(String[] args){
         Customer c = new Customer();
         c.setPassword("123456");
+//        System.out.println("toJson : " + c);
         System.out.println("password digest : " + c.getPassword());
         System.out.println("authenticate : " + c.authenticate("321321321"));
         System.out.println("authenticate : " + c.authenticate("123123123"));

@@ -50,7 +50,10 @@ public class Database implements Serializable {
         
         Customer c = new Customer();
         c.setName("John Doe");
+        c.setEmail("john@student.ncirl.ie");
+        c.setPassword("123123123");
         
+        add(c);
         add(c, new Account("90-66-30"));
         add(c, new Account("90-66-30", "Savings"));
         add(c, new Account("90-66-30", "Credit Card"));
@@ -58,12 +61,17 @@ public class Database implements Serializable {
 
         c = new Customer();
         c.setName("Mary Jane");
+        c.setEmail("mary@student.ncirl.ie");
+        c.setPassword("123123123");
         
+        add(c);
         add(c, new Account("90-66-30"));
         add(c, new Account("90-66-30", "Savings"));
     }
      
     public Customer add(Customer c){
+        c.setId(CUSTOMERS.size() + 1);
+        CUSTOMERS.add(c);
         return c;
     }
 

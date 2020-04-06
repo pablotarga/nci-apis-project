@@ -7,8 +7,6 @@ package apis.CA3.Resources;
 
 import apis.CA3.Models.Account;
 import apis.CA3.Services.AccountService;
-import apis.CA3.Responses.AccountListResponse;
-import apis.CA3.Responses.AccountResponse;
 
 import java.util.List;
 import javax.ws.rs.Consumes;
@@ -28,15 +26,8 @@ public class AccountsResource {
     AccountService srv = new AccountService();
     
     @GET
-    public List<AccountResponse> index(){
-        AccountListResponse resp = new AccountListResponse(srv.search());
-        List<AccountResponse> list = resp.list;
-        return list;
-    }
-    
-    @GET
-    @Path("/working")
-    public List<Account> index2(){
+    @Path("")
+    public List<Account> index(){
         return srv.search();
     }
 }

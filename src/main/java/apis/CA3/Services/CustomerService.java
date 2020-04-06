@@ -7,6 +7,7 @@ package apis.CA3.Services;
 
 import apis.CA3.Database.Database;
 import apis.CA3.Models.Customer;
+import apis.CA3.Params.AuthParams;
 import java.util.List;
 
 /**
@@ -23,6 +24,16 @@ public class CustomerService {
         return c;
     }
     
+    public Customer findById(int id){
+        for(Customer c: search()){
+            if(c.getId() == id){
+                return c;
+            }
+        }
+        return null;
+        
+    }
+        
     public Customer find(String email){
         for(Customer c: search()){
             if(c.getEmail().equals(email)){
@@ -35,6 +46,10 @@ public class CustomerService {
     
     public List<Customer> search(){
         return DB.getCustomerDB();
+    }
+    
+    public Customer login(AuthParams params){
+        return login(params.email, params.password);
     }
     
     public Customer login(String email, String secret){
