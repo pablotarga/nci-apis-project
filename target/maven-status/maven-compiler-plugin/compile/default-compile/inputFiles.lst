@@ -8,6 +8,7 @@ H:\apis\apis.ca3\src\main\java\apis\CA3\Resources\AccountsResource.java
 H:\apis\apis.ca3\src\main\java\apis\CA3\Test\PasswordEncryptionServiceTest.java
 H:\apis\apis.ca3\src\main\java\apis\CA3\Services\PasswordEncryptionService.java
 H:\apis\apis.ca3\src\main\java\apis\CA3\Test\AccountServiceTest.java
+H:\apis\apis.ca3\src\main\java\apis\CA3\Params\RegistrationParams.java
 H:\apis\apis.ca3\src\main\java\apis\CA3\Resources\AuthResource.java
 H:\apis\apis.ca3\src\main\java\apis\CA3\Test\CustomerTest.java
 H:\apis\apis.ca3\src\main\java\apis\CA3\Services\AccountService.java

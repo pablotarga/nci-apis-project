@@ -51,6 +51,7 @@ public class Database implements Serializable {
         Customer c = new Customer();
         c.setName("John Doe");
         c.setEmail("john@student.ncirl.ie");
+        c.setAddress("25 Talbot St");
         c.setPassword("123123123");
         
         add(c);

@@ -8,6 +8,7 @@ package apis.CA3.Resources;
 import apis.CA3.Models.Customer;
 import apis.CA3.Services.CustomerService;
 import apis.CA3.Params.AuthParams;
+import apis.CA3.Params.RegistrationParams;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.DELETE;
@@ -52,11 +53,23 @@ public class AuthResource {
         if(c == null){
             return Response.status(401).entity("").build();
         } else {
-            NewCookie authCookie = new NewCookie("cId", ""+c.getId(), "/api", null, null, 600, false, true);
-            Response.ResponseBuilder rb = Response.ok(c);
-            Response response = rb.cookie(authCookie).type(MediaType.APPLICATION_JSON).build();
-
-            return response;
+            return writeCookieWithCustomer(c);
+        }
+    }
+    
+    @POST
+    @Path("/register")
+    public Response register(RegistrationParams p){
+        if(p.isValid()){
+            Customer c = srv.register(p);
+            
+            if(c == null)
+                return Response.status(400).entity("\"Email already taken\"").build();
+            else
+                return writeCookieWithCustomer(c);
+            
+        } else {
+            return Response.status(400).entity("\"Invalid Params\"").build();
         }
     }
     
@@ -66,6 +79,14 @@ public class AuthResource {
         NewCookie authCookie = new NewCookie("cId", null, "/api", null, null, 0, false, true);
         Response.ResponseBuilder rb = Response.ok("");
         Response response = rb.cookie(authCookie).type(MediaType.APPLICATION_JSON).build();
+        return response;
+    }
+    
+    private Response writeCookieWithCustomer(Customer c){
+        NewCookie authCookie = new NewCookie("cId", ""+c.getId(), "/api", null, null, 600, false, true);
+        Response.ResponseBuilder rb = Response.ok(c);
+        Response response = rb.cookie(authCookie).type(MediaType.APPLICATION_JSON).build();
+
         return response;
     }
 }

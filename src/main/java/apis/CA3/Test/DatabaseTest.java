@@ -18,7 +18,7 @@ public class DatabaseTest {
         Database db = new Database();
         
         for(Customer a : db.getCustomerDB()){
-            System.out.println(a.toJson());
+            System.out.println(a.getEmail());
         }
 
         

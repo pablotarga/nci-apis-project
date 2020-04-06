@@ -29,6 +29,15 @@ public class Customer {
     
     private List<Account> accounts = new ArrayList<>();
     
+    public Customer(){}
+    
+    public Customer(String name, String address, String email, String password){
+        setName(name);
+        setAddress(address);
+        setEmail(email);
+        setPassword(password);
+    }
+    
     public void setId(int id){
         this.id = id;
     }
