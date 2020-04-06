@@ -18,10 +18,12 @@ import java.util.List;
  * @author x19183500
  */
 public class Database implements Serializable {
-//    private static final List<Candidate> CANDIDATES = new ArrayList<>();
     private static final List<Transaction> TRANSACTIONS = new ArrayList<>();
     private static final List<Account> ACCOUNTS = new ArrayList<>();
+    private static final List<Customer> CUSTOMERS = new ArrayList<>();
+    
     private static boolean populated = false;
+ 
     
     public Database(){
         if(!populated)
@@ -35,10 +37,10 @@ public class Database implements Serializable {
     public List<Transaction> getTransactionsDB(){
         return TRANSACTIONS;
     }
-
-//    public List<Candidate> getCandidatesDB(){
-//        return CANDIDATES;
-//    }
+    
+    public List<Customer> getCustomerDB(){
+        return CUSTOMERS;
+    }
     
     private void populate(){
         if(populated)
@@ -52,19 +54,15 @@ public class Database implements Serializable {
         add(c, new Account("90-66-30"));
         add(c, new Account("90-66-30", "Savings"));
         add(c, new Account("90-66-30", "Credit Card"));
-    }
+
+
+        c = new Customer();
+        c.setName("Mary Jane");
         
-//    public Candidate add(Candidate c){
-//        if(CANDIDATES.indexOf(c) >=0){
-//            return c;
-//        }
-//
-//        CANDIDATES.add(c);
-//        c.setCandidateId(CANDIDATES.size());
-//        save();
-//        return c;
-//    }  
-    
+        add(c, new Account("90-66-30"));
+        add(c, new Account("90-66-30", "Savings"));
+    }
+     
     public Customer add(Customer c){
         return c;
     }
