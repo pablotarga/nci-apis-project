@@ -7,11 +7,15 @@ package apis.CA3.Resources;
 
 import apis.CA3.Models.Account;
 import apis.CA3.Models.Customer;
+import apis.CA3.Models.Transaction;
 import apis.CA3.Services.AccountService;
 import apis.CA3.Services.CustomerService;
 import apis.CA3.Params.NewAccountParams;
+import apis.CA3.Params.NewTransactionParams;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
@@ -20,7 +24,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -76,6 +79,54 @@ public class AccountsResource {
         }
     }
    
+    @POST
+    @Path("/{id}/withdraw")
+    public Transaction withdraw(@CookieParam("cId") int cid,@PathParam("id") int id, NewTransactionParams t) {
+        if(t.isValid()){
+            Customer c = authsrv.findById(cid);
+        
+            if(c == null){
+                return null;
+            } else {   
+                Account a = srv.find(id, c.getAccounts());
+                if(a == null){
+                    return null;
+                }else{
+                   
+                    return srv.withdrawal(a, t.amount);
+                   
+                }
+                
+            }
+            
+        } else {
+            return null;
+        } 
+    }
     
+    @POST
+    @Path("/{id}/lodge")
+    public Transaction lodge(@CookieParam("cId") int cid,@PathParam("id") int id, NewTransactionParams t) {
+        if(t.isValid()){
+            Customer c = authsrv.findById(cid);
+        
+            if(c == null){
+                return null;
+            } else {   
+                Account a = srv.find(id, c.getAccounts());
+                if(a == null){
+                    return null;
+                }else{
+                   
+                    return srv.logde(a, t.amount);
+                   
+                }
+                
+            }
+            
+        } else {
+            return null;
+        } 
+    }
     
 }

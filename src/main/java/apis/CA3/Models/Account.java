@@ -5,6 +5,7 @@
  */
 package apis.CA3.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class Account{
     private String number;
     private double balance;
     private String title;
-    private List<Transaction> transactions;
+    private List<Transaction> transactions = new ArrayList<>();
     
     public Account() {
     }

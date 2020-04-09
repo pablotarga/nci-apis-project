@@ -76,27 +76,26 @@ public class AccountService {
     
     
     
-    public boolean withdrawal(Account a, double amount) throws Exception{
+    public Transaction withdrawal(Account a, double amount){
         if(a.getBalance() < amount){
-            throw new Exception("Insuficient funds");
+            return null;
         }
         
         double bal = a.getBalance() - amount;
         
         a.setBalance(bal);
         Transaction t = new Transaction('d', amount, "withdrawal", bal);
-        DB.add(a, t);
-        return true;
+        return DB.add(a, t);
+        
     }
     
-    public boolean logde(Account a, double amount){
+    public Transaction logde(Account a, double amount){
         double bal = a.getBalance() + amount;
         
         a.setBalance(bal);
         Transaction t = new Transaction('c', amount, "lodgement", bal);
-        DB.add(a, t);
+        return DB.add(a, t);
         
-        return true;
     }
     
     public boolean transfer(Account a, Account b, double amount) throws Exception{
