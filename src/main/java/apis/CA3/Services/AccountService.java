@@ -9,6 +9,7 @@ import apis.CA3.Database.Database;
 import apis.CA3.Models.Account;
 import apis.CA3.Models.Customer;
 import apis.CA3.Models.Transaction;
+import apis.CA3.Params.NewAccountParams;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,5 +132,16 @@ public class AccountService {
             throw new Exception("Account not found");
         
         return transfer(origin, target, amount);
+    }
+    
+    public Account openaccount(Customer c, NewAccountParams np) {
+        if(!np.isValid())
+            return null;
+        
+        return openaccount(c, np.sortCode, np.title);
+    }
+    
+    public Account openaccount( Customer c, String sortCode, String title) {
+        return DB.add(c, new Account(sortCode, title));   
     }
 }
