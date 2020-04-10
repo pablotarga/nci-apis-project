@@ -10,6 +10,7 @@ import apis.CA3.Models.Account;
 import apis.CA3.Models.Customer;
 import apis.CA3.Models.Transaction;
 import apis.CA3.Params.NewAccountParams;
+import apis.CA3.Params.TransferParams;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,32 +99,38 @@ public class AccountService {
         
     }
     
-    public boolean transfer(Account a, Account b, double amount) throws Exception{
-        if(a == b){
-            throw new Exception("Different accounts needed for transfering funds");
+    public List<Transaction> transfer(Account a, Account b, double amount){
+        
+        if(a == b || a == null || b == null){
+            return null;
         }
         
         if(a.getBalance() < amount){
-            throw new Exception("Insuficient funds");
+            return null;
         }
         
+        List<Transaction> list = new ArrayList<>();
         double bal;
-        Transaction t;
+       
 
         bal = a.getBalance() - amount;
         a.setBalance(bal);
-        t = new Transaction('d', amount, "Transfer to acc. "+b.toString(), bal);
-        DB.add(a, t);
+        Transaction t1 = new Transaction('d', amount, "Transfer to acc. "+b.toString(), bal);
+        DB.add(a, t1);
 
         bal = b.getBalance() + amount;
         b.setBalance(bal);
-        t = new Transaction('c', amount, "Transfer from acc. "+a.toString(), bal);
-        DB.add(b, t);
+        Transaction t2 = new Transaction('c', amount, "Transfer from acc. "+a.toString(), bal);
+        DB.add(b, t2);
+        list.add(t1);
+        if(a.getCustomerID() == b.getCustomerID()){
+            list.add(t2);
+        }
         
-        return true;
+        return list;
     }
 
-    public boolean transfer(Customer c, int accountId, String sortCode, String number, double amount) throws Exception{
+    public List<Transaction> transfer(Customer c, int accountId, String sortCode, String number, double amount) throws Exception{
         Account origin = find(accountId, c.getAccounts());
         Account target = find(sortCode, number);
         
@@ -131,6 +138,16 @@ public class AccountService {
             throw new Exception("Account not found");
         
         return transfer(origin, target, amount);
+    }
+    
+    public List<Transaction> transfer(Account a, TransferParams tp){
+        Account b;
+        if(tp.targetid!=0){
+            b = find(tp.targetid);
+        }else {
+            b = find(tp.sortCode, tp.number);
+        }
+        return transfer(a, b, tp.amount);
     }
     
     public Account openaccount(Customer c, NewAccountParams np) {

@@ -12,10 +12,9 @@ import apis.CA3.Services.AccountService;
 import apis.CA3.Services.CustomerService;
 import apis.CA3.Params.NewAccountParams;
 import apis.CA3.Params.NewTransactionParams;
+import apis.CA3.Params.TransferParams;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
@@ -119,6 +118,31 @@ public class AccountsResource {
                 }else{
                    
                     return srv.logde(a, t.amount);
+                   
+                }
+                
+            }
+            
+        } else {
+            return null;
+        } 
+    }
+    
+    @POST
+    @Path("/{id}/transfer")
+    public List<Transaction> transfer(@CookieParam("cId") int cid,@PathParam("id") int id, TransferParams tp) {
+        if(tp.isValid()){
+            Customer c = authsrv.findById(cid);
+        
+            if(c == null){
+                return null;
+            } else {   
+                Account a = srv.find(id, c.getAccounts());
+                if(a == null){
+                    return null;
+                }else{
+                   
+                    return srv.transfer(a, tp);
                    
                 }
                 
