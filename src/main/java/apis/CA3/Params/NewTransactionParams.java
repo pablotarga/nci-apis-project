@@ -11,6 +11,7 @@ package apis.CA3.Params;
  */
 public class NewTransactionParams {
     public double amount;
+    public String description;
     
     public boolean isValid(){
         return amount>0;

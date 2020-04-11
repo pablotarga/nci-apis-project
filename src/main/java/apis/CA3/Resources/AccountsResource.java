@@ -33,124 +33,45 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountsResource {
     AccountService srv = new AccountService();
-    CustomerService authsrv = new CustomerService();
+//    CustomerService authsrv = new CustomerService();
     
     @GET
     public List<Account> index(@CookieParam("cId") int id){
-       
-        Customer c = authsrv.findById(id);
-        
-        if(c == null){
+        if(srv.withCustomer(id).isAuthenticated())
+            return srv.search();
+        else 
             return null;
-        } else {
-            return c.getAccounts();
-        }
-       
     }
     
     @GET
     @Path("/{id}")
-    public Account show(@CookieParam("cId") int cid, @PathParam("id") int id){
-        Customer c = authsrv.findById(cid);
-        
-        if(c == null){
+    public Account show(@CookieParam("cId") int cid, @PathParam("id") int id){        
+        if(srv.withCustomer(id).isAuthenticated())
+            return srv.find(id);
+        else
             return null;
-        } else {
-            
-            return srv.find(id, c.getAccounts());
-        }
     }
- 
     
     @POST
     public Account create(@CookieParam("cId") int cid, NewAccountParams np) {
-        if(np.isValid()){
-            Customer c = authsrv.findById(cid);
-        
-            if(c == null){
-                return null;
-            } else {    
-                return srv.openaccount(c, np);
-            }
-            
-        } else {
-            return null;
-        }
+        return srv.withCustomer(cid).openaccount(np);
     }
    
     @POST
     @Path("/{id}/withdraw")
     public Transaction withdraw(@CookieParam("cId") int cid,@PathParam("id") int id, NewTransactionParams t) {
-        if(t.isValid()){
-            Customer c = authsrv.findById(cid);
-        
-            if(c == null){
-                return null;
-            } else {   
-                Account a = srv.find(id, c.getAccounts());
-                if(a == null){
-                    return null;
-                }else{
-                   
-                    return srv.withdrawal(a, t.amount);
-                   
-                }
-                
-            }
-            
-        } else {
-            return null;
-        } 
+        return srv.withCustomer(cid).withdrawal(id, t);
     }
     
     @POST
     @Path("/{id}/lodge")
     public Transaction lodge(@CookieParam("cId") int cid,@PathParam("id") int id, NewTransactionParams t) {
-        if(t.isValid()){
-            Customer c = authsrv.findById(cid);
-        
-            if(c == null){
-                return null;
-            } else {   
-                Account a = srv.find(id, c.getAccounts());
-                if(a == null){
-                    return null;
-                }else{
-                   
-                    return srv.logde(a, t.amount);
-                   
-                }
-                
-            }
-            
-        } else {
-            return null;
-        } 
+        return srv.withCustomer(cid).lodge(id, t);
     }
     
     @POST
     @Path("/{id}/transfer")
-    public List<Transaction> transfer(@CookieParam("cId") int cid,@PathParam("id") int id, TransferParams tp) {
-        if(tp.isValid()){
-            Customer c = authsrv.findById(cid);
-        
-            if(c == null){
-                return null;
-            } else {   
-                Account a = srv.find(id, c.getAccounts());
-                if(a == null){
-                    return null;
-                }else{
-                   
-                    return srv.transfer(a, tp);
-                   
-                }
-                
-            }
-            
-        } else {
-            return null;
-        } 
+    public List<Transaction> transfer(@CookieParam("cId") int cid,@PathParam("id") int id, TransferParams t) {
+        return srv.withCustomer(cid).transfer(id, t);
     }
-    
 }
