@@ -33,7 +33,6 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountsResource {
     AccountService srv = new AccountService();
-//    CustomerService authsrv = new CustomerService();
     
     @GET
     public List<Account> index(@CookieParam("cId") int id){

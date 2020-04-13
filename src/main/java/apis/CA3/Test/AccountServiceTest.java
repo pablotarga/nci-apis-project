@@ -26,7 +26,7 @@ public class AccountServiceTest {
         c.setName("Pablo");
                 
         a1 = s.add(c, new Account("33-00-22"));
-        s.logde(a1, 1500);
+        s.lodge(a1, 1500.0);
         s.withdrawal(a1, 15.67);
         
         a2 = s.add(c, new Account("33-00-22", "Savings"));
