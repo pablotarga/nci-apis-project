@@ -116,18 +116,15 @@ public class AccountService {
     }
 
     public Transaction withdrawal(Account a, double amount, String description){
-        if(a.getBalance() < amount){
+        if(a.getBalance() < amount)
             return null;
-        }
-        
-        if(description == null){
+
+        if(description == null || description.trim().isEmpty())
             description = "Withdrawal";
-        }
 
         double bal = a.getBalance() - amount;
-        
         a.setBalance(bal);
-        Transaction t = new Transaction('d', amount, description, bal);
+        Transaction t = new Transaction('d', amount, description.trim(), bal);
         return DB.add(a, t);
     }
     
@@ -155,13 +152,13 @@ public class AccountService {
     }
     
     public Transaction lodge(Account a, double amount, String description){
-        if(description == null){
+        if(description == null || description.trim().isEmpty())
             description = "Lodgement";
-        }
+
         double bal = a.getBalance() + amount;
-        
+
         a.setBalance(bal);
-        Transaction t = new Transaction('c', amount, description, bal);
+        Transaction t = new Transaction('c', amount, description.trim(), bal);
         return DB.add(a, t);
     }
     
@@ -170,17 +167,17 @@ public class AccountService {
         if(this.isAuthenticated()){
             Account a = this.find(id);
             if(a != null)
-                this.transfer(a, tp);
+                return this.transfer(a, tp);
         }
-        
+
         return null;
     }
     
     public List<Transaction> transfer(Account a, TransferParams tp){
         if(tp == null || !tp.isValid())
             return null;
-        
-        Account b = (tp.targetid != 0) ? find(tp.targetid) : find(tp.sortCode, tp.number);
+
+        Account b = (tp.targetid != 0) ? find(tp.targetid, DB.getAccountsDB()) : find(tp.sortCode, tp.number, DB.getAccountsDB());
         return transfer(a, b, tp.amount);
     }
     
@@ -192,16 +189,13 @@ public class AccountService {
     }
     
     public List<Transaction> transfer(Account a, Account b, double amount){
-        if(a == b || a == null || b == null){
+        if(a == b || a == null || b == null)
             return null;
-        }
-        
-        if(a.getBalance() < amount){
-            return null;
-        }
-        
-        List<Transaction> list = new ArrayList<>();
 
+        if(a.getBalance() < amount)
+            return null;
+
+        List<Transaction> list = new ArrayList<>();
         Transaction t1 = this.withdrawal(a, amount, "Transfer to acc. "+b.toString());
         if(t1 == null)
             return null;
@@ -209,9 +203,8 @@ public class AccountService {
         Transaction t2 = this.lodge(b, amount, "Transfer from acc. "+a.toString());
 
         list.add(t1);
-        if(a.getCustomerID() == b.getCustomerID()){
+        if(a.getCustomerID() == b.getCustomerID())
             list.add(t2);
-        }
         
         return list;
     }

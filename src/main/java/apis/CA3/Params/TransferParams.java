@@ -16,7 +16,7 @@ public class TransferParams {
     public double amount;
     
     public boolean isValid() {
-        return amount>0 && (targetid != 0 || (sortCode != null && number !=null));   
+        return amount > 0 && (targetid != 0 || (sortCode != null && number !=null));   
     }
     
 }
