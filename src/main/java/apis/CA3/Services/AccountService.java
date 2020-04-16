@@ -23,6 +23,7 @@ public class AccountService {
     private static final Database DB = new Database();
     private static final CustomerService AUTH = new CustomerService();
     
+            
     private Customer customer;
     
     public Account add(Customer c, Account a){ 
@@ -44,7 +45,7 @@ public class AccountService {
         return this.customer != null;
     }
     
-    
+  
     public List<Account> search(){
         return this.isAuthenticated() ? this.customer.getAccounts() : DB.getAccountsDB();
     }
