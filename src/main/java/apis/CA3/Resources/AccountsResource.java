@@ -45,7 +45,7 @@ public class AccountsResource {
     @GET
     @Path("/{id}")
     public Account show(@CookieParam("cId") int cid, @PathParam("id") int id){        
-        if(srv.withCustomer(id).isAuthenticated())
+        if(srv.withCustomer(cid).isAuthenticated())
             return srv.find(id);
         else
             return null;
@@ -72,5 +72,10 @@ public class AccountsResource {
     @Path("/{id}/transfer")
     public List<Transaction> transfer(@CookieParam("cId") int cid,@PathParam("id") int id, TransferParams t) {
         return srv.withCustomer(cid).transfer(id, t);
+    }
+    
+    @Path("/{accountId}/transactions")
+    public TransactionResource mountTransactions(){
+        return new TransactionResource();
     }
 }

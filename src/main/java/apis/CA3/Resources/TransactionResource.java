@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import apis.CA3.Services.TransactionService;
 import java.util.List;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.PathParam;
 
@@ -26,16 +27,16 @@ public class TransactionResource {
     TransactionService srv = new TransactionService();
     
     @GET
-    public List<Transaction> getTtansactions(@PathParam("accountID") int targetid) {
-        System.out.println("GetAllTransactions" + targetid);
-        return srv.getAllTransactions();
+    public List<Transaction> getTtansactions(@CookieParam("cId") int cid,@PathParam("accountId") int accountId) {
+        System.out.println("GetAllTransactions" + accountId);
+        return srv.getAllTransactions(cid, accountId);
     }
     
     @GET
-    @Path("/{TransactionID}")
-    public Transaction getTransaction(@PathParam("TransactionID") int targetid) {
-    	System.out.println("getTransactionByID..."+targetid);
-	return srv.getTransactionByID(targetid);
+    @Path("/{id}")
+    public Transaction getTransaction(@CookieParam("cId") int cid,@PathParam("id") int id, @PathParam("accountId") int accountId) {
+    	System.out.println("getTransactionByID..."+accountId);
+	return srv.getTransaction(cid, accountId, id);
     }
     
   
