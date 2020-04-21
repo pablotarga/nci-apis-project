@@ -3,17 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+// define the package
 package apis.CA3.Params;
 
 /**
  *
  * @author x19182121
  */
+// class to list permitted attributes when creating a new account
 public class NewAccountParams {
-  public String sortCode;
-  public String title;  
+    // attribute sortCode
+    public String sortCode;
+    // attribute title
+    public String title;  
   
-  public boolean isValid(){
+    // method to check if parameters are valid
+    public boolean isValid(){
+        // check if sortCode is present and title is present
         return sortCode != null && title != null;
     }
 }
